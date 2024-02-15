@@ -45,6 +45,11 @@
                 p.innerHTML= "message: "  + message.text;
                 response.appendChild(p);
             }
+            
+            function sendEvent(eventType, content){
+            	eventType = "Order";
+            	stompClient.send("/app/send/"+eventType, {}, JSON.stringify({'type': eventType, 'content':content}));
+            }
         </script>
 </head>
 <body>
