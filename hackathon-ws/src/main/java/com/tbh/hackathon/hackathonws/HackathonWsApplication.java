@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class HackathonWsApplication {
 
 	
-	//this is starter class
+	//this is starter class of springboot
 	public static void main(String[] args) {
 		System.out.print("Hello");
 		SpringApplication.run(HackathonWsApplication.class, args);
