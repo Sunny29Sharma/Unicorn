@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HackathonWsApplication {
 
+	
+	//this is starter class
 	public static void main(String[] args) {
 		System.out.print("Hello");
 		SpringApplication.run(HackathonWsApplication.class, args);
