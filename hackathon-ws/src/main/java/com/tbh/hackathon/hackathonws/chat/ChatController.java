@@ -16,6 +16,12 @@ public class ChatController {
 		return chatMessage;
 	}
 	
+	/**
+	 *this method is for adding the user
+	 * @param chatMsg
+	 * @param headerAccessor
+	 * @return
+	 */
 	@MessageMapping("/chat.addUser")
 	@SendTo("/topic/public")
 	public ChatMessage addUser(@Payload ChatMessage chatMsg , SimpMessageHeaderAccessor headerAccessor) {
