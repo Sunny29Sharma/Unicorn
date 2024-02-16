@@ -10,7 +10,6 @@
                 });
             });
 
-            socket = new SockJS('/ws');
             privateStompClient = Stomp.over(socket);
             privateStompClient.connect({}, function(frame) {
                     console.log(frame);
