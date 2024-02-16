@@ -1,76 +1,169 @@
-<html>
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
-    <script type="text/javascript">
-            var stompClient = null;
-            var privateStompClient = null;
-
-            var socket = new SockJS('/ws');
-            stompClient = Stomp.over(socket);
-            stompClient.connect({}, function(frame) {
-                console.log(frame);
-                stompClient.subscribe('/all/messages', function(result) {
-                    show(JSON.parse(result.body));
-                });
-            });
-
-            socket = new SockJS('/ws');
-            privateStompClient = Stomp.over(socket);
-            privateStompClient.connect({}, function(frame) {
-                    console.log(frame);
-                    privateStompClient.subscribe('/user/specific', function(result) {
-                    console.log(result.body)
-                        show(JSON.parse(result.body));
-                    });
-                });
-
-
-            function sendMessage() {
-                var text = document.getElementById('text').value;
-                stompClient.send("/app/application", {},
-                  JSON.stringify({'text':text}));
-            }
-
-             function sendPrivateMessage() {
-                var text = document.getElementById('privateText').value;
-                var to = document.getElementById('to').value;
-                stompClient.send("/app/private", {},
-                  JSON.stringify({'text':text, 'to':to}));
-            }
-
-            function show(message) {
-                var response = document.getElementById('messages');
-                var p = document.createElement('p');
-                p.innerHTML= "message: "  + message.text;
-                response.appendChild(p);
-            }
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="language" content="en">
+      <meta name="charset" content="utf-8">
+      <meta name="robots" content="index, follow">      
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             
-            function sendEvent(eventType, content){
-            	eventType = "Order";
-            	stompClient.send("/app/send/"+eventType, {}, JSON.stringify({'type': eventType, 'content':content}));
-            }
-        </script>
-</head>
-<body>
-<div>
-    <div>
-        <button id="sendMessage" onclick="sendMessage();">Send</button>
-        <input type="text" id="text" placeholder="Text"/>
-    </div>
-    <br />
-    <div>
-        <button id="sendPrivateMessage" onclick="sendPrivateMessage();">Send Private</button>
-        <input type="text" id="privateText" placeholder="Private Message"/>
-        <input type="text" id="to" placeholder="To"/>
-    </div>
-    <br />
-    <br />
-    <br />
+      <meta property="og:title" content="Tata Nexarc">
+      <meta property="og:description" content="Tata Nexarc">
+      <meta name="keyword" content="">
+      <link rel="canonical" href="https://www.tatanexarc.com/" />
 
-        <div id="messages"></div>
+      <link rel="icon" href="images/fav-icon16.png" sizes="16x16">
+      <link rel="icon" href="images/fav-icon32.png" sizes="32x32">
+      <title>Unicorn | Settings </title>
 
-</div>
+      <!-- Bootstrap CSS -->
+      <link href="css/bootstrap.min.css" rel="preload" as="style">
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      
+      <!-- font family -->
+      <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+         as="style" onload="this.onload=null;this.rel='stylesheet'" />
+      <noscript>
+         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"
+            type="text/css" />
+      </noscript>
 
-</body>
+      <!-- Bootstrap CSS -->
+      <link href="css/custom.css" rel="preload" as="style">
+      <link href="css/custom.css" rel="stylesheet">
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script> 
+      <script src="/js/websockets-connections.js"></script>
+   </head>
+   
+   <body class="fixed-header gray-bg">
+      <div class="main-wrapper">
+        <header class="header">
+            <div class="container-fluid">
+                <div class="header-wrap">
+                    <div class="header-logo">
+                        <a href="javascript:void(0);">
+                            <img src="images/logo-nexarc.svg" alt="Tata Nexarc">
+                        </a>
+                    </div>
+                    <div class="header-nav">
+                        <div class="all-notifications">
+                            <button class="notification-btn" data-toggle="tooltip" data-placement="left" title="Notifications"> <img src="images/Notification.svg"> <span class="badges">3</span></button>
+                        </div>
+                        <div class="logged-in-user">
+                            <button class="user-btn">VS</button>
+                        </div>
+                        <div class="user-details-sec">
+                            <div class="user-profile-content">
+                                <figure> <img src="images/user.png" alt="User"> </figure>
+                                <div class="user-profile-info">
+                                    <div class="user-name">Unicorn</div>
+                                    <div class="user-designation">Tata Nexarc</div>
+                                </div>
+                            </div>
+                            <ul>
+                                <li> <a href="javascript:void(0);">Change Password</a></li>
+                                <li> <a href="javascript:void(0);">Settings</a></li>
+                                <li> <a href="javascript:void(0);">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="body-wrapper">
+            <div class="container">
+                <div class="notification-wrap">
+                    <h4 class="section-title"> Notifications Settings </h4>
+                    <div class="notifications-box">
+                        <h3> Tenders </h3>
+                        <div class="notification-list">
+                            <p> New tenders posted on the system </p>
+                            <div class="nexarc-check nexarc-switch purple">
+                                <input class="nexarc-check-input" type="checkbox" role="switch" id="new-tenders">
+                            </div>
+                        </div>
+                        <div class="notification-list">
+                            <p> Updates on tenders you are interested </p>
+                            <div class="nexarc-check nexarc-switch purple">
+                                <input class="nexarc-check-input" type="checkbox" role="switch" id="update-tenders">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notifications-box">
+                        <h3> Logistics </h3>
+                        <div class="notification-list">
+                            <p> Shipment Tracking Updates </p>
+                            <div class="nexarc-check nexarc-switch purple">
+                                <input class="nexarc-check-input" type="checkbox" role="switch" id="track-shipment">
+                            </div>
+                        </div>
+                        <div class="notification-list">
+                            <p> Pending dues(reminder to pay) </p>
+                            <div class="nexarc-check nexarc-switch purple">
+                                <input class="nexarc-check-input" type="checkbox" role="switch" id="reminder-dues">
+                            </div>
+                        </div>
+                        <div class="notification-list">
+                            <p> Offers/discounts </p>
+                            <div class="nexarc-check nexarc-switch purple">
+                                <input class="nexarc-check-input" type="checkbox" role="switch" id="offers" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notifications-box">
+                        <h3> General </h3>
+                        <div class="notification-list">
+                            <p> In app Notification </p>
+                            <div class="nexarc-check nexarc-switch purple">
+                                <input class="nexarc-check-input" type="checkbox" role="switch" id="inapp-notification">
+                            </div>
+                        </div>
+                        <div class="notification-list">
+                            <p> Sound alert </p>
+                            <div class="nexarc-check nexarc-switch purple">
+                                <input class="nexarc-check-input" type="checkbox" role="switch" id="sound-alert">
+                            </div>
+                        </div>
+                        <div class="notification-list">
+                            <p> when in desktop they wnt this to be visible </p>
+                            <div class="nexarc-check nexarc-switch purple">
+                                <input class="nexarc-check-input" type="checkbox" role="switch" id="visible-notification" checked>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn-wrap">
+                        <button type="button" class="toast-btn success-toast" msg="Settings saved" icon="fa-check" icon-color="#27ae60" animation="slide-in-slide-out">Success</button>                
+                        <button type="button" class="toast-btn danger-toast" msg="Settings not saved!" icon="fa-xmark" icon-color="#c0392b" animation="slide-in-fade-out">Error</button> 
+                        <button type="button" class="toast-btn info-toast" msg="Message received" icon="fa-info" icon-color="#2980b9" animation="slide-in-slide-out">Information</button>
+                    </div>
+                </div>
+
+                <div class="toasts"></div>
+                <div class="master-toast-notification hide-toast">
+                    <div class="toast-content">
+                        <div class="toast-icon">
+                            <i class="fa-solid"></i>
+                        </div>
+                        <div class="toast-msg"></div>
+                        <div class="alert-close"></div>
+                    </div>
+                    <div class="toast-progress">
+                        <div class="toast-progress-bar"></div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+      </div>  
+      <script src="js/jquery-3.5.1.min.js"></script>
+      <script src="js/Popper.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/custom.js"></script>
+   </body>
 </html>

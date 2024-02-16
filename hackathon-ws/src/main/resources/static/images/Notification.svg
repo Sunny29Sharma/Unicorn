@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="38" height="38" viewBox="0 0 38 38">
+  <defs>
+    <clipPath id="clip-Notification_">
+      <rect width="38" height="38"/>
+    </clipPath>
+  </defs>
+  <g id="Notification_" data-name="Notification " clip-path="url(#clip-Notification_)">
+    <g id="Ellipse_3" data-name="Ellipse 3" fill="none" stroke="#c5c5c5" stroke-width="1">
+      <circle cx="19" cy="19" r="19" stroke="none"/>
+      <circle cx="19" cy="19" r="18.5" fill="none"/>
+    </g>
+    <g id="download_2_" data-name="download (2)" transform="translate(9.644 9.842)">
+      <path id="Path_1" data-name="Path 1" d="M9.557,1.979v.574a5.593,5.593,0,0,0-1.379-.115,2.914,2.914,0,0,0-1.379.23V1.979A1.327,1.327,0,0,1,8.179.6,1.327,1.327,0,0,1,9.557,1.979Z" transform="translate(1.027)" fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_2" data-name="Path 2" d="M14.184,6.78a4.636,4.636,0,0,0-3.52-4.25A6.409,6.409,0,0,0,9.207,2.3a3.236,3.236,0,0,0-1.457.23A4.481,4.481,0,0,0,4.473,6.78v.689a8.24,8.24,0,0,1-1.7,5.055l-.364.46a1.165,1.165,0,0,0,1.214,1.493H15.155a1.081,1.081,0,0,0,1.092-1.493l-.364-.46a8.575,8.575,0,0,1-1.7-5.169V6.78Z" transform="translate(0 0.253)" fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_3" data-name="Path 3" d="M6.4,14.3a2,2,0,0,0,1.953,1.379A2.113,2.113,0,0,0,10.306,14.3Z" transform="translate(0.975 3.008)" fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>
