@@ -6,24 +6,21 @@ import org.springframework.stereotype.Service;
 
 import com.tbh.hackathon.hackathonws.chat.BusinessEvent;
 
-import lombok.AllArgsConstructor;
-
 @Service
 
 public class OrderService {
 	
-	private final SimpMessagingTemplate messagingTemplate;
-	
 	@Autowired
-	public OrderService(SimpMessagingTemplate messagingTemplate) {
-		this.messagingTemplate = messagingTemplate;
-	}
+	private  SimpMessagingTemplate messagingTemplate;
+	
+	
 	
 	public void notifyOrderUpdate(String orderId, String status) {
 		
 		BusinessEvent event = new BusinessEvent();
 		event.setType("Order");
 		event.setContent(" Hurray!! Your Order "+ orderId+" is "+status);
-		messagingTemplate.convertAndSend("topic/Order", event);
+		System.out.println("notifyOrderUpdate :"+ event);
+		messagingTemplate.convertAndSend("/topic/Order", event);
 	}
 }

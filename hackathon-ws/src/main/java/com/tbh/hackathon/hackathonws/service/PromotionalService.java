@@ -10,18 +10,15 @@ import com.tbh.hackathon.hackathonws.chat.BusinessEvent;
 @Service
 public class PromotionalService {
 
-	private final SimpMessagingTemplate messagingTemplate;
-
-	
 	@Autowired
-	public PromotionalService(SimpMessagingTemplate messagingTemplate) {
-		this.messagingTemplate = messagingTemplate;
-	}
+	private  SimpMessagingTemplate messagingTemplate;
+
 	public void notifyDiscountCoupon(String coupon)
 	{
 		BusinessEvent event = new BusinessEvent();
 		event.setType("Reminder");
-		event.setContent(" Hey!! Use this coupon+ "+coupon+" to get discount of Rs.500 on your next order");
-		messagingTemplate.convertAndSend("topic/Promotional", event);
+		event.setContent(" Hey!! Use this coupon "+coupon+" to get discount of Rs.500 on your next order");
+		System.out.println(event);
+		messagingTemplate.convertAndSend("/topic/Promotional", event);
 	}
 }
