@@ -19,7 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		registry.enableSimpleBroker("/all", "/specific","topic");// all for to broadcast to all, specific is for only specific users
+		registry.enableSimpleBroker("/all", "/specific","/topic");// all for to broadcast to all, specific is for only specific users
 		//registry.setApplicationDestinationPrefixes("/app");
 		
 		//registry.enableSimpleBroker("/topic");
